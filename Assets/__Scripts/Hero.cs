@@ -7,7 +7,7 @@ public class Hero : MonoBehaviour {
 
 	public float	speed = 30;
 	public float	rollMult = -45;
-	public float  	pitchMult=30;
+	public float  	pitchMult = 30;
 
 	public float	shieldLevel=1;
 
@@ -45,6 +45,6 @@ public class Hero : MonoBehaviour {
 		}
 		
 		// rotate the ship to make it feel more dynamic
-		transform.rotation =Quaternion.Euler(yAxis*pitchMult, xAxis*rollMult,0);
+		transform.rotation = Quaternion.Euler(yAxis*pitchMult, xAxis*rollMult,0);
 	}
 }

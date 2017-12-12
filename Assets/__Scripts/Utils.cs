@@ -77,8 +77,8 @@ public class Utils : MonoBehaviour
 			Vector3 boundTLN = cam.ScreenToWorldPoint(topLeft);
 			Vector3	boundBRF = cam.ScreenToWorldPoint(bottomRight);	
 			
-			boundTLN.z = cam.nearClipPlane;
-			boundBRF.z = cam.farClipPlane;
+			boundTLN.z += cam.nearClipPlane;
+			boundBRF.z += cam.farClipPlane;
 			
 			Vector3 center = (boundTLN + boundBRF) /2f;
 			
