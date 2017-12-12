@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Hero : MonoBehaviour {
 
-	static public Hero		S;
+	static public Hero		S; // Singleton
+
+    public float gameRestartDelay = 2f;
 
 	public float	speed = 30;
 	public float	rollMult = -45;
@@ -80,6 +82,8 @@ public class Hero : MonoBehaviour {
             //If the shield is going to be set to less than zero
             if (value < 0) {
                 Destroy(this.gameObject);
+                //Tell Main.S to restart the game after a delay
+                Main.S.DelayedRestart(gameRestartDelay);
             }
         }
     }
