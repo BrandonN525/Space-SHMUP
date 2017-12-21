@@ -5,13 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
     static public Main S;
+    static public Dictionary<WeaponType, WeaponDefinition> W_DEFS;
 
     public GameObject[] prefabEnemies;
     public float enemySpawnPerSecond = 0.5f;
     public float enemySpawnPadding = 1.5f;
+    public WeaponDefinition[] weaponDefinitions;
 
     public bool _______________;
 
+    public WeaponType[] activeWeaponTypes;
     public float enemySpawnRate;
 
     void Awake() {
@@ -21,6 +24,29 @@ public class Main : MonoBehaviour {
         //0.5 enemies/second = enemySpawnRate of 2
         enemySpawnRate = 1f / enemySpawnPerSecond;
         Invoke("SpawnEnemy", enemySpawnRate);
+
+        //A generic Dictionary with WeaponType as the key
+        W_DEFS = new Dictionary<WeaponType, WeaponDefinition>();
+        foreach (WeaponDefinition def in weaponDefinitions) {
+            W_DEFS[def.type] = def;
+        }
+    }
+
+    static public WeaponDefinition GetWeaponDefinition(WeaponType wt) {
+        //Check to make sure that the key exists in the Dictionary
+        //Attempting to retrieve a key that didn't exist, would throw an error,
+        //  so the following if statement is important.
+        if (W_DEFS.ContainsKey(wt)) {
+            return (W_DEFS[wt]);
+        }
+        return (new WeaponDefinition());
+    }
+
+    void Start() {
+        activeWeaponTypes = new WeaponType[weaponDefinitions.Length];
+        for (int i = 0; i < weaponDefinitions.Length; i++) {
+            activeWeaponTypes[i] = weaponDefinitions[i].type;
+        }
     }
 
     public void SpawnEnemy() {
